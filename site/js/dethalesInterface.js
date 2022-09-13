@@ -72,7 +72,10 @@ function verificarOpcao(opcao) {
 
 function executarFunc() {
     let opcao = selectOpcao.value;
-    
+    let descrProduto = inProduto.value;
+    let mesVenda = inMes.value;
+    let qtdVenda = inQtd.value;
+
     var resultado = document.querySelector(".resultado");
 
     resultado.innerText = "";
@@ -80,16 +83,16 @@ function executarFunc() {
     switch (opcao) {
         case "Listar":
             let htmlTable = criarTableHtml(vetProdutos, vetMeses, matVendas);
-            if (htmlTable != null){
+            if (htmlTable != null) {
                 document.querySelector(".resultado").appendChild(htmlTable);
             } else {
                 outResultado.style.color = "red";
                 outResultado.textContent = "Erro! Divergência entre os dados de vetores e matriz!";
             }
-        break;
+            break;
 
         case "Acrescentar":
-            let descrProduto = inProduto.value;
+            // let descrProduto = inProduto.value;
             if (descrProduto == "") {
                 outResultado.style.color = "red";
                 outResultado.textContent = "Para acrescentar produto novo, o campo deve ser preenchido!";
@@ -102,19 +105,20 @@ function executarFunc() {
                     outResultado.style.color = "red";
                     outResultado.textContent = "Erro! O produto " + descrProduto + " já estava cadastrado!";
                     inProduto.focus();
-                }        
-                console.log (acrescentarProduto);
+                }
             }
-        break;
+            break;
 
+        case "Alterar":
+            
     }
 }
 
-function criarTableHtml(vetLin, vetCol, mat){
+function criarTableHtml(vetLin, vetCol, mat) {
     //esta function retorna null caso haja erro nos parâmetros
     //por exemplo: tamanho de vetLin e vetCol não compatível com dimensões da matriz
 
-    if (vetLin.length == mat.length && vetCol.length == mat[0].length){
+    if (vetLin.length == mat.length && vetCol.length == mat[0].length) {
         var table = document.createElement("table");
         var thead = document.createElement("thead");
         var tbody = document.createElement("tbody");
@@ -122,20 +126,20 @@ function criarTableHtml(vetLin, vetCol, mat){
         //criando a primeira célula da thead com elemento de texto vazio
         thead.appendChild(document.createElement("th"));
 
-        for (let i = 0; i < vetCol.length; i++){
+        for (let i = 0; i < vetCol.length; i++) {
             let th = document.createElement("th");
             th.textContent = vetCol[i];
             thead.appendChild(th);
         }
         table.appendChild(thead);
 
-        for (let lin = 0; lin < vetLin.length; lin++){
+        for (let lin = 0; lin < vetLin.length; lin++) {
             let tr = document.createElement("tr");
             let td = document.createElement("td");
             td.textContent = vetLin[lin];
             tr.appendChild(td);
 
-            for(let col = 0; col < vetCol.length; col++){
+            for (let col = 0; col < vetCol.length; col++) {
                 td = document.createElement("td");
                 td.textContent = mat[lin][col];
                 tr.appendChild(td);
@@ -144,14 +148,9 @@ function criarTableHtml(vetLin, vetCol, mat){
             tbody.appendChild(tr);
         }
         table.appendChild(tbody);
-        
+
         return table;
     } else {
         return null;
     }
 }
-
-/* 
-linha 9: ../js/dethalesOperacoes.js;
-linha 76 e 78: linhas adcionadas para tabela criar uma vez ao apertar o botão
-*/
