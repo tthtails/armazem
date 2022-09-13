@@ -99,7 +99,7 @@ function executarFunc() {
                 inProduto.focus();
             } else {
                 if (acrescentarProduto(descrProduto) == true) {
-                    outResultado.style.color = "blue";
+                    outResultado.style.color = "green";
                     outResultado.textContent = "O novo produto foi acrescentado com sucesso!";
                 } else {
                     outResultado.style.color = "red";
